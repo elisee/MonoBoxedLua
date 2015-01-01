@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug Windows</Configuration>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
     <ProductVersion>9.0.21022</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
@@ -15,10 +15,10 @@
     </UpgradeBackupLocation>
     <OldToolsVersion>3.5</OldToolsVersion>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug Windows|x86'">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <DebugSymbols>true</DebugSymbols>
-    <OutputPath>bin\x86\Debug Windows\</OutputPath>
-    <DefineConstants>DEBUG;WINDOWS</DefineConstants>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG</DefineConstants>
     <Optimize>true</Optimize>
     <DebugType>full</DebugType>
     <PlatformTarget>x86</PlatformTarget>
@@ -26,44 +26,14 @@
     <CodeAnalysisIgnoreBuiltInRuleSets>false</CodeAnalysisIgnoreBuiltInRuleSets>
     <CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release Windows|x86'">
-    <OutputPath>bin\x86\Release Windows\</OutputPath>
-    <DefineConstants>WINDOWS</DefineConstants>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants></DefineConstants>
     <PlatformTarget>x86</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
     <DebugType>pdbonly</DebugType>
     <DebugSymbols>true</DebugSymbols>
     <Optimize>true</Optimize>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug Linux|x86'">
-    <DebugSymbols>true</DebugSymbols>
-    <OutputPath>bin\x86\Debug Linux\</OutputPath>
-    <DefineConstants>DEBUG;LINUX</DefineConstants>
-    <Optimize>true</Optimize>
-    <DebugType>full</DebugType>
-    <PlatformTarget>x86</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release Linux|x86'">
-    <OutputPath>bin\x86\Release Linux\</OutputPath>
-    <DefineConstants>LINUX</DefineConstants>
-    <PlatformTarget>x86</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug OS X|x86'">
-    <DebugSymbols>true</DebugSymbols>
-    <OutputPath>bin\x86\Debug OS X\</OutputPath>
-    <DefineConstants>DEBUG;MACOSX</DefineConstants>
-    <Optimize>true</Optimize>
-    <DebugType>full</DebugType>
-    <PlatformTarget>x86</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release OS X|x86'">
-    <OutputPath>bin\x86\Release OS X\</OutputPath>
-    <DefineConstants>MACOSX</DefineConstants>
-    <PlatformTarget>x86</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
   </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -90,19 +60,19 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\lua-5.1.5\Release\lua51.dll" Condition=" '$(Configuration)' == 'Debug Windows' or '$(Configuration)' == 'Release Windows' ">
+    <None Include="..\lua-5.1.5\Release\lua51.dll">
       <Link>lua51.dll</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="..\lua-5.1.5\Release\liblua-linux32.so" Condition=" '$(Configuration)' == 'Debug Linux' or '$(Configuration)' == 'Release Linux' ">
+    <None Include="..\lua-5.1.5\Release\liblua-linux32.so">
       <Link>liblua-linux32.so</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="..\lua-5.1.5\Release\liblua-linux64.so" Condition=" '$(Configuration)' == 'Debug Linux' or '$(Configuration)' == 'Release Linux' ">
+    <None Include="..\lua-5.1.5\Release\liblua-linux64.so">
       <Link>liblua-linux64.so</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="..\lua-5.1.5\Release\liblua-osx.dylib" Condition=" '$(Configuration)' == 'Debug OS X' or '$(Configuration)' == 'Release OS X' ">
+    <None Include="..\lua-5.1.5\Release\liblua-osx.dylib">
       <Link>liblua-osx.dylib</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
