@@ -9,7 +9,9 @@ namespace LuaInterfaceSample
 
         public MyLuaAPI()
         {
-            Lua = new LuaInterface.Lua();
+            // Pass true to the constructor if you're on Mac or Linux.
+            // See Lua.LoadString for an explanation
+            Lua = new LuaInterface.Lua( false );
             Type self = GetType();
 
             // Expose some C# functions to Lua
