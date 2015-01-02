@@ -29,8 +29,13 @@ namespace LuaInterface
         LuaCSFunction tracebackFunction;
         // lockCallback, unlockCallback; used by debug code commented out for now
 
-        public Lua()
+        bool enableLengthWorkaround;
+
+        public Lua(bool enableLengthWorkaround)
         {
+            // NOTE: You should enable the length workaround on Mac and Linux
+            this.enableLengthWorkaround = enableLengthWorkaround;
+
             luaState = LuaDLL.luaL_newstate();	// steffenj: Lua 5.1.1 API change (lua_open is gone)
 
             // Load libraries
@@ -167,11 +172,9 @@ namespace LuaInterface
             try
             {
                 // Somehow, on OS X and Linux, we need to use the UTF-8 byte count rather than the string length
-#if MACOSX || LINUX
-                if (LuaDLL.luaL_loadbuffer(luaState, chunk, System.Text.Encoding.UTF8.GetByteCount( chunk ), name) != 0)
-#else
-                if (LuaDLL.luaL_loadbuffer(luaState, chunk, chunk.Length, name) != 0)
-#endif
+                var length = enableLengthWorkaround ? System.Text.Encoding.UTF8.GetByteCount( chunk ) : chunk.Length;
+
+                if (LuaDLL.luaL_loadbuffer(luaState, chunk, length, name) != 0)
                     ThrowExceptionFromError(oldTop);
             }
             finally { executing = false; }
@@ -206,7 +209,7 @@ namespace LuaInterface
          */
         public object[] DoString(string chunk)
         {
-            return DoString(chunk,"chunk");
+            return DoString(chunk, "chunk");
         }
 
         /// <summary>
@@ -220,12 +223,10 @@ namespace LuaInterface
             int oldTop = LuaDLL.lua_gettop(luaState);
             executing = true;
 
-            // Somehow, on OS X, we need to use the UTF-8 byte count rather than the string length
-#if MACOSX || LINUX
-            if (LuaDLL.luaL_loadbuffer(luaState, chunk, System.Text.Encoding.UTF8.GetByteCount( chunk ), chunkName) == 0)
-#else
-            if (LuaDLL.luaL_loadbuffer(luaState, chunk, chunk.Length, chunkName) == 0)
-#endif
+            // Somehow, on OS X and Linux, we need to use the UTF-8 byte count rather than the string length
+            var length = enableLengthWorkaround ? System.Text.Encoding.UTF8.GetByteCount( chunk ) : chunk.Length;
+
+            if (LuaDLL.luaL_loadbuffer(luaState, chunk, length, chunkName) == 0)
             {
                 try
                 {
